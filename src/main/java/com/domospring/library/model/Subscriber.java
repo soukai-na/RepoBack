@@ -24,8 +24,13 @@ public class Subscriber {
     private int num_sim;
     @Column(name="fonction")
     private String fonction;
-    @Column(name="date_creation")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date date_creation;
+    @PrePersist
+    private void onCreate(){
+        date_creation=new Date();
+    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_service")
