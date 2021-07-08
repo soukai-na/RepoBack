@@ -1,14 +1,21 @@
 package com.domospring.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @ToString
+@Setter
+@Getter
 public class Service {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,8 +25,9 @@ public class Service {
     @Column(name="description")
     private String description;
 
-    @OneToMany
-    private Collection<Subscriber> subscribers;
+    @JsonIgnore
+    @OneToMany(mappedBy = "service")
+    private Set<Subscriber> subscribers= new HashSet<>();
 
 
 

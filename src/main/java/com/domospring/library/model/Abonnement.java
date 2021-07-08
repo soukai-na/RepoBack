@@ -1,11 +1,14 @@
 package com.domospring.library.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -22,12 +25,14 @@ public class Abonnement {
     @Column(name="type_forfait")
     private String type_forfait;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private Collection<Subscriber> subscribers;
+    @JsonIgnore
+    @OneToMany(mappedBy = "abonnement")
+    private Set<Subscriber> subscribers = new HashSet<>();
 
+/*
     @OneToMany(fetch = FetchType.LAZY)
     private Collection<Facture> factures;
-
+*/
 
 }
 

@@ -1,17 +1,21 @@
 package com.domospring.library.model;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
 @ToString
 @NoArgsConstructor
+@Setter
+@Getter
 public class Subscriber {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,21 +36,29 @@ public class Subscriber {
         date_creation=new Date();
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_service")
+    @ManyToOne(cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "service_id", referencedColumnName = "id_service")
     private Service service;
-    @OneToMany(fetch = FetchType.LAZY)
-    private Collection<Materiel> materiels;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    public void updateServiceSubscriber(Service service) {
+        this.service=service;
+    }
+    public void updateAbonnementSubscriber(Abonnement abonnement) {
+        this.abonnement=abonnement;
+    }
+    @JsonIgnore
+    @OneToMany(mappedBy = "subscriber")
+    private Set<Materiel> materiels=new HashSet<>();
+
+
+    @OneToOne(fetch = FetchType.LAZY, optional=false)
     @JoinColumn(name="facture_id", referencedColumnName = "id_facture")
     private Facture facture;
 
 
-    @ManyToOne
-    @JoinColumn(name = "id_abonnement")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "abonnement_id",referencedColumnName = "id_abonnement")
     private Abonnement abonnement;
-
 
 
 

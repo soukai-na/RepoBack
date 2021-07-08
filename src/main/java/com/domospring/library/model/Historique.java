@@ -19,10 +19,10 @@ public class Historique {
     private Date date_action;
     @Column(name="description")
     private  String description;
-
+/*
     @ManyToOne
     @JoinColumn(name = "id_materiel")
     private Materiel materiel;
-
+*/
 
 }

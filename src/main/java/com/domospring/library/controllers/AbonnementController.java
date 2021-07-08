@@ -15,26 +15,26 @@ public class AbonnementController {
     @Autowired
     private AbonnementRepository abonnement;
 
-    @GetMapping(value="/AllAbonnements")
+    @GetMapping(value="/abonnements")
     private List<Abonnement> getAllAbonnements(){
         return abonnement.findAll();
     }
 
-    @PostMapping("/Abonnements")
+    @PostMapping("/abonnements")
     Abonnement newAbonnement(@RequestBody Abonnement newAbonnement){ return abonnement.save(newAbonnement);}
 
-    @GetMapping("/Abonnements/{id_abonnement}")
+    @GetMapping("/abonnements/{id_abonnement}")
     Optional<Abonnement> GetAbonnement(@PathVariable Long id_abonnement){
         return abonnement.findById(id_abonnement);
     }
 
-    @PutMapping(value = "/Abonnements/{id_abonnement}")
+    @PutMapping(value = "/abonnements/{id_abonnement}")
     private Abonnement UpdateAbonnement(@PathVariable(name = "id_abonnement") Long id_abonnement, @RequestBody Abonnement abn){
         abn.setId_abonnement(id_abonnement);
         return abonnement.save(abn);
     }
 
-    @DeleteMapping("/Abonnements/{id_abonnement}")
+    @DeleteMapping("/abonnements/{id_abonnement}")
     void deleteAbonnements(@PathVariable Long id_abonnement) {
         abonnement.deleteById(id_abonnement);
     }

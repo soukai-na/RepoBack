@@ -15,23 +15,36 @@ public class ServiceController {
     @Autowired
     private ServiceRepository service;
 
-    @GetMapping(value="/AllServices")
-    private List<Service> getAllSubscribers(){
+    //afficher les services
+    @GetMapping(value="/services")
+    private List<Service> getAllServices(){
+
         return service.findAll();
     }
-    @PostMapping(value = "/Services")
-    Service newService(@RequestBody Service newService){ return service.save(newService);}
 
-    @GetMapping("/Services/{id_service}")
-    Optional<Service> GetServices(@PathVariable Long id_service){
+    //afficher un service par son id
+    @GetMapping("/services/{id_service}")
+    Optional<Service> GetService(@PathVariable Long id_service){
+
         return service.findById(id_service);
     }
-    @PutMapping(value = "/Services/{id_service}")
+
+//créer un service
+    @PostMapping(value = "/services")
+    Service newService(@RequestBody Service newService){
+        return service.save(newService);
+    }
+
+
+    //modifier un service
+    @PutMapping(value = "/services/{id_service}")
     private Service UpdateService(@PathVariable(name = "id_service") Long id_service, @RequestBody Service ser){
         ser.setId_service(id_service);
         return  service.save(ser);
     }
-    @DeleteMapping(value = "/Services/{id_service}")
+
+    //supprimer un service
+    @DeleteMapping(value = "/services/{id_service}")
     void deleteServices(@PathVariable Long id_service){service.deleteById(id_service);}
 }
 

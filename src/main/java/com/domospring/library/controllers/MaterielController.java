@@ -1,7 +1,9 @@
 package com.domospring.library.controllers;
 
 import com.domospring.library.dao.MatereilRepository;
+import com.domospring.library.dao.SubscriberRepository;
 import com.domospring.library.model.Materiel;
+import com.domospring.library.model.Subscriber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,28 +15,47 @@ import java.util.Optional;
 @RequestMapping("")
 public class MaterielController {
     @Autowired
-    private MatereilRepository materiel;
+    private MatereilRepository mater;
+    @Autowired
+    private SubscriberRepository sub;
 
-    @GetMapping(value="/AllMateriels")
+    //afficher tous les materiels
+    @GetMapping(value="/materiels")
     private List<Materiel> getAllMateriels(){
-        return materiel.findAll();
+        return mater.findAll();
     }
-    @PostMapping("/Materiels")
-    Materiel newMateriel(@RequestBody Materiel newMateriel){return materiel.save(newMateriel);}
-
-    @GetMapping("/Materiels/{id_materiel}")
+//Afficher un materiel avec son id
+    @GetMapping("/materiels/{id_materiel}")
     Optional<Materiel> GetMateriels(@PathVariable Long id_materiel){
-        return materiel.findById(id_materiel);
+        return mater.findById(id_materiel);
     }
 
-    @PutMapping(value = "/Materiels/{id_materiel}")
+    //creer un materiel
+    @PostMapping("/materiels")
+    Materiel newMateriel(@RequestBody Materiel newMateriel){return mater.save(newMateriel);}
+
+    //modifier un materiel
+    @PutMapping(value = "/materiels/{id_materiel}")
     private  Materiel UpdateMateriel(@PathVariable(name = "id_materiel") Long id_materiel, @RequestBody Materiel mtl){
         mtl.setId_materiel(id_materiel);
-        return materiel.save(mtl);
+        return mater.save(mtl);
     }
 
-    @DeleteMapping("/Materiels/{id_materiel}")
-    void deleteMateriels(@PathVariable Long id_materiel){materiel.deleteById(id_materiel);}
+    //donner un materiel à un subscriber
+    @PutMapping(value = "/materiels/{id_materiel}/subscribers/{id_subscriber}")
+    public Materiel updateSubscriberMateriel(
+            @PathVariable Long id_materiel,
+            @PathVariable Long id_subscriber
+    ){
+        Materiel materiel= mater.findById(id_materiel).get();
+        Subscriber subscriber=sub.findById(id_subscriber).get();
+        materiel.updateSubscriberMateriel(subscriber);
+        return mater.save(materiel);
+    }
+
+    //supprimer un materiel
+    @DeleteMapping("/materiels/{id_materiel}")
+    void deleteMateriels(@PathVariable Long id_materiel){mater.deleteById(id_materiel);}
 
 }
 

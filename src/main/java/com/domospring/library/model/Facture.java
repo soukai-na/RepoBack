@@ -21,12 +21,12 @@ public class Facture {
     @Column(name="Montant")
     private Long montant;
 
-    @OneToOne(mappedBy = "facture")
+    @OneToOne(mappedBy = "facture",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private Subscriber subscriber;
-
+/*
     @ManyToOne
     @JoinColumn(name = "id_abonnement")
     private Abonnement abonnement;
-
+*/
 }
 
