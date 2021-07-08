@@ -1,9 +1,11 @@
 package com.domospring.library.controllers;
 
 import com.domospring.library.dao.AbonnementRepository;
+import com.domospring.library.dao.FactureRepository;
 import com.domospring.library.dao.ServiceRepository;
 import com.domospring.library.dao.SubscriberRepository;
 import com.domospring.library.model.Abonnement;
+import com.domospring.library.model.Facture;
 import com.domospring.library.model.Service;
 import com.domospring.library.model.Subscriber;
 import javassist.NotFoundException;
@@ -23,6 +25,8 @@ public class SubscriberController {
     private ServiceRepository ser;
     @Autowired
     private AbonnementRepository abm;
+    @Autowired
+    private FactureRepository fct;
 
 //afficher tous les subscribers
     @GetMapping(value="/subscribers")

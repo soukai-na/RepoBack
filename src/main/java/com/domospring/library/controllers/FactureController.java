@@ -1,7 +1,11 @@
 package com.domospring.library.controllers;
 
+import com.domospring.library.dao.AbonnementRepository;
 import com.domospring.library.dao.FactureRepository;
+import com.domospring.library.dao.SubscriberRepository;
 import com.domospring.library.model.Facture;
+import com.domospring.library.model.Subscriber;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,30 +17,45 @@ import java.util.Optional;
 @RequestMapping("")
 public class FactureController {
     @Autowired
-    private FactureRepository facture;
+    private FactureRepository fact;
+    @Autowired
+    private SubscriberRepository sub;
 
-    @GetMapping(value="/AllFactures")
+    //afficher tous les factures
+    @GetMapping(value="/factures")
     private List<Facture> getAllFactures(){
-        return facture.findAll();
+        return fact.findAll();
     }
 
-    @PostMapping("/Factures")
-    Facture newFacture(@RequestBody Facture newFacture){ return facture.save(newFacture);}
-
-    @GetMapping("/Factures/{id_facture}")
+    //afficher la facture par son id
+    @GetMapping("/factures/{id_facture}")
     Optional<Facture> GetFacture(@PathVariable Long id_facture){
-        return facture.findById(id_facture);
+        return fact.findById(id_facture);
     }
 
-    @PutMapping(value = "/Factures/{id_facture}")
-    private Facture UpdateFacture(@PathVariable(name = "id_facture") Long id_facture, @RequestBody Facture f){
-        f.setId_facture(id_facture);
-        return facture.save(f);
+    //donner la facture à un subscriber
+   @PutMapping(value="/subscribers/{id_subscriber}/factures/{id_facture}")
+    public Facture updateFactureSubscriber(
+            @PathVariable Long id_facture,
+            @PathVariable Long id_subscriber
+    ){
+        Facture facture=fact.findById(id_facture).get();
+        Subscriber subscriber=sub.findById(id_subscriber).get();
+        facture.updateFactureSubscriber(subscriber);
+        return fact.save(facture);
     }
 
-    @DeleteMapping("/Factures/{id_facture}")
-    void deleteFactures(@PathVariable Long id_facture) {
-        facture.deleteById(id_facture);
+
+    //modifier une facture
+    @PostMapping(value = "/factures")
+    public Facture UpdateFacture(@RequestBody Facture factureUpdated) {
+        return fact.save(factureUpdated);
+    }
+
+    //delete facture
+    @DeleteMapping("/factures/{id_facture}")
+    public void deleteFactures(@PathVariable Long id_facture)  {
+        fact.deleteById(id_facture);
     }
 
 

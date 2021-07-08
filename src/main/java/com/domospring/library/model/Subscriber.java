@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -51,8 +50,8 @@ public class Subscriber {
     private Set<Materiel> materiels=new HashSet<>();
 
 
-    @OneToOne(fetch = FetchType.LAZY, optional=false)
-    @JoinColumn(name="facture_id", referencedColumnName = "id_facture")
+    @OneToOne
+    @JsonIgnore
     private Facture facture;
 
 

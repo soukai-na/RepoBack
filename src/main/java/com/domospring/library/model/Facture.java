@@ -1,5 +1,6 @@
 package com.domospring.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -21,12 +22,13 @@ public class Facture {
     @Column(name="Montant")
     private Long montant;
 
-    @OneToOne(mappedBy = "facture",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+
+    @OneToOne
     private Subscriber subscriber;
-/*
-    @ManyToOne
-    @JoinColumn(name = "id_abonnement")
-    private Abonnement abonnement;
-*/
+
+
+    public void updateFactureSubscriber(Subscriber subscriber) {
+        this.subscriber=subscriber;
+    }
 }
 

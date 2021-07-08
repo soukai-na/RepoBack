@@ -29,10 +29,8 @@ public class Abonnement {
     @OneToMany(mappedBy = "abonnement")
     private Set<Subscriber> subscribers = new HashSet<>();
 
-/*
-    @OneToMany(fetch = FetchType.LAZY)
-    private Collection<Facture> factures;
-*/
+
+
 
 }
 
