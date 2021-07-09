@@ -34,24 +34,25 @@ public class FactureController {
     }
 
     //donner la facture à un subscriber
-   @PutMapping(value="/subscribers/{id_subscriber}/factures/{id_facture}")
-    public Facture updateFactureSubscriber(
-            @PathVariable Long id_facture,
-            @PathVariable Long id_subscriber
-    ){
-        Facture facture=fact.findById(id_facture).get();
-        Subscriber subscriber=sub.findById(id_subscriber).get();
-        facture.updateFactureSubscriber(subscriber);
-        return fact.save(facture);
+   @PostMapping(value="/subscribers/{id_subscriber}/factures")
+    public Facture newFactureSubscriber(
+            @PathVariable Long id_subscriber,
+            @RequestBody Facture newFacture
+    ) throws NotFoundException {
+        return sub.findById(id_subscriber).map(subscriber ->
+        {
+            newFacture.setSubscriber(subscriber);
+            return fact.save(newFacture);
+        }).orElseThrow(()->new NotFoundException("subscriber not found"));
     }
 
-
+/*
     //modifier une facture
     @PostMapping(value = "/factures")
     public Facture UpdateFacture(@RequestBody Facture factureUpdated) {
         return fact.save(factureUpdated);
     }
-
+*/
     //delete facture
     @DeleteMapping("/factures/{id_facture}")
     public void deleteFactures(@PathVariable Long id_facture)  {
