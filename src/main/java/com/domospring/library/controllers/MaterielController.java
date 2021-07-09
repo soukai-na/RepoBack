@@ -42,7 +42,7 @@ public class MaterielController {
     }
 
     //donner un materiel à un subscriber
-    @PutMapping(value = "/materiels/{id_materiel}/subscribers/{id_subscriber}")
+    @PostMapping(value = "/materiels/{id_materiel}/subscribers/{id_subscriber}")
     public Materiel updateSubscriberMateriel(
             @PathVariable Long id_materiel,
             @PathVariable Long id_subscriber

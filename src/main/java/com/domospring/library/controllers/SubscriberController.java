@@ -85,7 +85,7 @@ public class SubscriberController {
     }
 
     //donner une abonnement à un subscriber
-    @PutMapping(value="/subscribers/{id_subscriber}/abonnements/{id_abonnement}")
+    @PostMapping(value="/subscribers/{id_subscriber}/abonnements/{id_abonnement}")
     public Subscriber updateAbonnementSubscriber(
             @PathVariable Long id_subscriber,
             @PathVariable Long id_abonnement){
