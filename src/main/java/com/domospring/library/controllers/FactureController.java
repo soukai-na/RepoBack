@@ -53,10 +53,24 @@ public class FactureController {
         return fact.save(factureUpdated);
     }
 */
+    /*
     //delete facture
     @DeleteMapping("/factures/{id_facture}")
     public void deleteFactures(@PathVariable Long id_facture)  {
         fact.deleteById(id_facture);
+    }
+*/
+    @DeleteMapping("subscribers/{id_subscriber}/factures/{id_facture}")
+    public String deleteFacture(@PathVariable Long id_facture,@PathVariable Long id_subscriber) throws NotFoundException {
+        if(!sub.existsById(id_subscriber)){
+            throw new NotFoundException("subscriber not found");
+        }
+        return fact.findById(id_facture).map(
+                facture->{
+                    fact.delete(facture);
+                    return "deleted succ";
+                }
+        ).orElseThrow(()->new NotFoundException("facture not found"));
     }
 
 

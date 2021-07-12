@@ -55,7 +55,7 @@ public class Subscriber {
     private Set<Facture> factures=new HashSet<>();
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "abonnement_id",referencedColumnName = "id_abonnement")
     private Abonnement abonnement;
 

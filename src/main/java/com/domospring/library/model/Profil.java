@@ -18,5 +18,8 @@ public abstract class Profil {
     private Long id_profil;
     @Column(name="designation")
     private String designation;
-
+    @Column(name="username")
+    private String username;
+    @Column(name="password")
+    private String password;
 }

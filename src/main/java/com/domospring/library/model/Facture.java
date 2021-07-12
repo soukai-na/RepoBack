@@ -23,7 +23,7 @@ public class Facture {
     private Long montant;
 
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "subscriber_id",referencedColumnName = "id_subscriber")
     private Subscriber subscriber;
 
