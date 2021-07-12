@@ -45,14 +45,14 @@ public class Subscriber {
     public void updateAbonnementSubscriber(Abonnement abonnement) {
         this.abonnement=abonnement;
     }
+
     @JsonIgnore
     @OneToMany(mappedBy = "subscriber")
     private Set<Materiel> materiels=new HashSet<>();
 
-
-    @OneToOne
     @JsonIgnore
-    private Facture facture;
+    @OneToMany(mappedBy = "subscriber")
+    private Set<Facture> factures=new HashSet<>();
 
 
     @ManyToOne(cascade = CascadeType.ALL)
