@@ -1,5 +1,6 @@
 package com.domospring.library.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,6 +9,8 @@ import lombok.ToString;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -38,10 +41,10 @@ public class Materiel {
     public void updateSubscriberMateriel(Subscriber subscriber) {
         this.subscriber=subscriber;
     }
-   /*
-    @OneToMany(fetch = FetchType.LAZY)
-    private Collection<Historique> historiques;
-    */
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "materiel")
+    private Set<Historique> historiques=new HashSet<>();
 
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="subscriber_id", referencedColumnName = "id_subscriber")

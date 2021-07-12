@@ -15,14 +15,18 @@ public class Historique {
     private Long id_action;
     @Column(name="justif")
     private String justif;
-    @Column(name="date_action")
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date date_action;
+    @PrePersist
+    private void onCreate(){
+        date_action=new Date();
+    }
     @Column(name="description")
     private  String description;
-/*
+
     @ManyToOne
-    @JoinColumn(name = "id_materiel")
+    @JoinColumn(name="materiel_id", referencedColumnName = "id_materiel")
     private Materiel materiel;
-*/
 
 }

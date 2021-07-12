@@ -15,15 +15,13 @@ public class HistoriqueController {
     @Autowired
     private HistoriqueRepository historique;
 
-    @GetMapping(value="/AllHistoriques")
+    @GetMapping(value="/historiques")
     private List<Historique> getAllHistoriques(){return historique.findAll();}
 
-    @PostMapping("/Historiques")
+    @PostMapping("/historiques")
     Historique newHistorique(@RequestBody Historique newHistorique){return historique.save(newHistorique);}
 
-    @GetMapping("/Historiques/{id_action}")
+    @GetMapping("/historiques/{id_action}")
     Optional<Historique> GetHistoriques(@PathVariable long id_action){ return historique.findById(id_action);}
 
-    @DeleteMapping("/Historiques/{id_historique}")
-    void  deleteHistoriques(@PathVariable Long id_historique){historique.deleteById(id_historique);}
 }
