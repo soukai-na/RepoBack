@@ -43,7 +43,7 @@ public class Materiel {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy = "materiel")
+    @OneToMany(mappedBy = "materiel",cascade=CascadeType.PERSIST)
     private Set<Historique> historiques=new HashSet<>();
 
     @ManyToOne(cascade=CascadeType.PERSIST)

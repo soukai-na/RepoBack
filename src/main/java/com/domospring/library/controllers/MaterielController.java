@@ -6,6 +6,7 @@ import com.domospring.library.dao.SubscriberRepository;
 import com.domospring.library.model.Historique;
 import com.domospring.library.model.Materiel;
 import com.domospring.library.model.Subscriber;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,14 +62,18 @@ public class MaterielController {
         return mater.save(materiel);
     }
 
+
     //supprimer un materiel
     @DeleteMapping("/materiels/{id_materiel}")
     void deleteMateriels(@PathVariable Long id_materiel,@RequestBody Historique newHistorique){
         Materiel materiel= mater.findById(id_materiel).get();
-        historique.save(newHistorique);
-        newHistorique.setMateriel(materiel);
-        mater.deleteById(id_materiel);
+      /*  historique.save(newHistorique);
+        newHistorique.setMateriel(materiel);  */
+        mater.delete(materiel);
     }
+
+
+
 
 }
 

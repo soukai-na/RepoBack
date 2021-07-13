@@ -25,7 +25,7 @@ public class Historique {
     @Column(name="description")
     private  String description;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="materiel_id", referencedColumnName = "id_materiel")
     private Materiel materiel;
 
