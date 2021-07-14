@@ -13,8 +13,8 @@ public class Historique {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_action;
-    @Column(name="justif")
-    private String justif;
+    @Column(name="motif")
+    private String motif;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date date_action;
@@ -22,8 +22,6 @@ public class Historique {
     private void onCreate(){
         date_action=new Date();
     }
-    @Column(name="description")
-    private  String description;
 
     @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name="materiel_id", referencedColumnName = "id_materiel")

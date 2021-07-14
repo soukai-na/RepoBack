@@ -18,12 +18,12 @@ public class Abonnement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_abonnement;
-    @Column(name="type")
-    private String type;
     @Column(name="tarif")
     private String tarif;
     @Column(name="type_forfait")
     private String type_forfait;
+    @Column(name="solde")
+    private String solde;
 
     @JsonIgnore
     @OneToMany(mappedBy = "abonnement")

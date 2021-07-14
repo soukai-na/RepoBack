@@ -65,7 +65,7 @@ public class MaterielController {
 
     //supprimer un materiel
     @DeleteMapping("/materiels/{id_materiel}")
-    void deleteMateriels(@PathVariable Long id_materiel,@RequestBody Historique newHistorique){
+    void deleteMateriels(@PathVariable Long id_materiel){
         Materiel materiel= mater.findById(id_materiel).get();
       /*  historique.save(newHistorique);
         newHistorique.setMateriel(materiel);  */
