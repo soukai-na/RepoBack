@@ -13,8 +13,6 @@ public class Historique {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_action;
-    @Column(name="motif")
-    private String motif;
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private Date date_action;

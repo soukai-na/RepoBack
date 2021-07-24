@@ -41,6 +41,8 @@ public class Materiel {
     public void updateSubscriberMateriel(Subscriber subscriber) {
         this.subscriber=subscriber;
     }
+    @Column(name = "justification")
+    private String justification;
 
     @JsonIgnore
     @OneToMany(mappedBy = "materiel",cascade=CascadeType.PERSIST)
