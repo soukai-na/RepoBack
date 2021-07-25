@@ -30,13 +30,7 @@ class DemoCommandLineRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("Done :)");
 
-        User admin=new User();
-        admin.setNom_user("mouhamad");
-        admin.setPrenom_user("mouhamad");
-        admin.setUsername("admin");
-        admin.setPassword("password");
 
-        userRepository.save(admin);
     }
 }
 
