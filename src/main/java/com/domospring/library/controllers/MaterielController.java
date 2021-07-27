@@ -96,6 +96,7 @@ public class MaterielController {
             Materiel materiel= mater.findById(id_materiel).get();
             Subscriber subscriber=sub.findById(id_subscriber).get();
             materiel.updateSubscriberMateriel(subscriber);
+            materiel.setJustification(materiel.getJustification());
             historique.save(newHistorique);
             newHistorique.setMateriel(materiel);
             Materiel matSub= mater.save(materiel);
